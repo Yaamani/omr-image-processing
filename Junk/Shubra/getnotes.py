@@ -31,12 +31,12 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 matplotlib.rcParams['figure.dpi'] = 200
 
 
-def getNotes(img_thresh):
+def getNotes(original_img,img_thresh):
 
     #ori_img = io.imread(pathImage)
 
-    width= img_thresh.shape[1]
-    height = img_thresh.shape[0]
+    width= original_img.shape[1]
+    height = original_img.shape[0]
 
     #img_thresh = ori_img
     show_images([img_thresh],["thresh"])
@@ -65,7 +65,7 @@ def getNotes(img_thresh):
 
         x, y, w, h = cv.boundingRect(contour)
        
-        out = img_thresh[y:y+h,x:x+w]
+        out = original_img[y:y+h,x:x+w]
         listOfImages.append(out)
         
     return listOfImages    
