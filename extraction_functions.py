@@ -11,13 +11,15 @@ import matplotlib.pyplot as plt
 from commonfunctions import *
 
 
+
+
 def find_4_points(img):
     img = np.copy(img)
     img = cv.Canny(img, 50, 200, None, 3)
-
-    pts = np.transpose((np.nonzero(img)[1], np.nonzero(img)[0]))
+    
+    pts = np.transpose((np.nonzero(img)[1],np.nonzero(img)[0]))
     #pts = np.non(pts)
-    rect = np.zeros((4, 2), dtype="float32")
+    rect = np.zeros((4, 2), dtype = "float32")
     # the top-left point will have the smallest sum, whereas
     # the bottom-right point will have the largest sum
     s = pts.sum(axis = 1)
