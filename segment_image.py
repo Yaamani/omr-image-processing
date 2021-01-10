@@ -14,11 +14,11 @@ import cv2 as cv
 
 def segment_into_lines_of_notes(img):
     gray_lines , binary_lines  = get_lines(img)
-    my_show_images(binary_lines)
-    lines_of_notes = []
+    #my_show_images(binary_lines)
+    '''lines_of_notes = []
     for i in range(len(gray_lines)):
     
-        lines_of_notes.append(getNotes(gray_lines[i] ,binary_lines[i]))
+        lines_of_notes.append(getNotes(gray_lines[i] ,binary_lines[i]))'''
     
-    return lines_of_notes
+    #return lines_of_notes
 

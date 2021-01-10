@@ -127,7 +127,7 @@ def binarize_image(original_img,distance):
 
 def get_lines(img):
     image = np.copy(img)
-    image ,distance,thickness = derotate_and_crop(image)
+    image , distance, thickness = derotate_and_crop(image)
     #print(distance)
     my_copy = np.copy(image)
     my_copy = gray2rgb((my_copy*255).astype(np.uint8),3)
@@ -147,7 +147,7 @@ def get_lines(img):
         binary_array.append(binarize_image(new_img,distance))
         
         
-    my_show_images(gray_array,dpi = 100)
+    #my_show_images(gray_array,dpi = 100)
     #show_images([image,image_contours])
     return gray_array,binary_array
     

@@ -28,10 +28,10 @@ import matplotlib
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
-matplotlib.rcParams['figure.dpi'] = 200
+#matplotlib.rcParams['figure.dpi'] = 200
 
 
-def getNotes(original_img,img_thresh):
+def getNotes(original_img, img_thresh, staff_thickness):
 
     #ori_img = io.imread(pathImage)
 
@@ -39,7 +39,7 @@ def getNotes(original_img,img_thresh):
     height = original_img.shape[0]
 
     #img_thresh = ori_img
-    show_images([img_thresh],["thresh"])
+    #show_images([img_thresh],["thresh"])
 
     hist = []
 
@@ -49,7 +49,9 @@ def getNotes(original_img,img_thresh):
 
     # find thr for detecting character
     occurence_count = Counter(hist)
-    thr_character = occurence_count.most_common(1)[0][0]
+    thr_character = occurence_count.most_common(1)[0][0] * 1.2
+
+
 
     #convert list of hist to numpy array as uint8 for  using in countours
     a = np.zeros(img_thresh.shape)

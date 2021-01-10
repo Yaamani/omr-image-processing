@@ -45,6 +45,21 @@ def my_show_images(images,titles=None, row_max=1, dpi=200):
     plt.show() 
     
 
+def add_padding(img_gray, ww, hh, color):
+    ht, wd = img_gray.shape[:2]
+
+    # create new image of desired size and color (blue) for padding
+    result = np.full((hh, ww), color, dtype=np.uint8)
+
+    # compute center offset
+    xx = (ww - wd) // 2
+    yy = (hh - ht) // 2
+
+    # copy img image into center of result image
+    result[yy:yy+ht, xx:xx+wd] = img_gray
+
+    return result
+
 def my_show_hist(img):
     img = (img * 255).astype(np.uint8) if img.dtype != np.uint8 else img
     hist = np.histogram(img, range(0, 257))
