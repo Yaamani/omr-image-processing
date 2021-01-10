@@ -149,7 +149,7 @@ def get_lines(img):
         
     #my_show_images(gray_array,dpi = 100)
     #show_images([image,image_contours])
-    return gray_array,binary_array
+    return gray_array, binary_array, distance, thickness
     
 
 
