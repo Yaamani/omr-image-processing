@@ -93,6 +93,19 @@ def my_open(src, kernel):
     return cv2.dilate(dilated, kernel)
 
 
+def get_staff_thickness(img_staff_lines_white):
+    img_height = img_staff_lines_white.shape[0]
+    
+    flattened = img_staff_lines_white.T.flatten()
+    flattened_indices = np.arange(0, flattened.shape[0], 1, np.uint32)
+    flattened[flattened_indices % img_height == 0] = False # Separate each column with a black pixel
+    
+    image, contours_thickness, hierarchy = cv2.findContours((flattened*255).astype(np.uint8), 
+                                                            cv2.RETR_TREE, 
+                                                            cv2.CHAIN_APPROX_SIMPLE)
+
+    return most_frequent_white_length(img_height, contours_thickness)
+
 def get_distance_between_staves_and_staff_thickness(img_binary_bg_white):
     img_height = img_binary_bg_white.shape[0]
     
@@ -176,3 +189,25 @@ def rotate_bound(image, angle):
     M[1, 2] += (nH / 2) - cY
 
     return cv2.warpAffine(image, M, (nW, nH),borderValue=(255,255,255))
+
+
+def add_padding(img_gray, ww, hh, color):
+    ht, wd = img_gray.shape[:2]
+
+    # create new image of desired size and color (blue) for padding
+    result = np.full((hh, ww), color, dtype=np.uint8)
+
+    # compute center offset
+    xx = (ww - wd) // 2
+    yy = (hh - ht) // 2
+
+    # copy img image into center of result image
+    result[yy:yy+ht, xx:xx+wd] = img_gray
+
+    return result
+
+
+def contours_mask(contours, shape):
+    mask = cv2.cvtColor(np.zeros(shape[:2], dtype=np.uint8), cv2.COLOR_GRAY2BGR)
+    mask = cv2.drawContours(mask, contours, -1, (255, 255, 255), -1)
+    return cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
